@@ -49,7 +49,11 @@ On that page, the user can see the captured, cancelled and refunded summaries an
 
 This basic implementation can be extended with additional code to cover different business needs.
 
+<<<<<<< HEAD
 ![Customer Service Center](readme_images/CSC.png)
+=======
+![Customer Service Center](CSC.png)
+>>>>>>> 7328248 (feat: first release)
 
 ## Additional order handling
 
@@ -59,7 +63,11 @@ A custom job step `custom.monextHandleOrders` is implemented. It accepts two par
 
 It can be used to automate certain processes depending on the business cases. It can be set to run on schedule or manually.
 
+<<<<<<< HEAD
 ![Jobs](readme_images/jobs.png)
+=======
+![Jobs](jobs.png)
+>>>>>>> 7328248 (feat: first release)
 
 **Example 1**: Capture amount for shipped orders. 
 In that case the query for orders could be:
@@ -228,7 +236,10 @@ Configure the preferences:
 # Additional resources for developers
 
 - [Monext API documentation](https://api-docs.retail.monext.com/reference/getting-started-with-your-api)
+<<<<<<< HEAD
 - [Monext documentation](https://docs.monext.fr/display/DT/Plugin+Salesforce)
+=======
+>>>>>>> 7328248 (feat: first release)
 - [SFCC](https://developer.salesforce.com/developer-centers/commerce-cloud)
 
 # License
