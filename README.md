@@ -49,7 +49,7 @@ On that page, the user can see the captured, cancelled and refunded summaries an
 
 This basic implementation can be extended with additional code to cover different business needs.
 
-![Customer Service Center](CSC.png)
+![Customer Service Center](readme_images/CSC.png)
 
 ## Additional order handling
 
@@ -59,7 +59,7 @@ A custom job step `custom.monextHandleOrders` is implemented. It accepts two par
 
 It can be used to automate certain processes depending on the business cases. It can be set to run on schedule or manually.
 
-![Jobs](jobs.png)
+![Jobs](readme_images/jobs.png)
 
 **Example 1**: Capture amount for shipped orders. 
 In that case the query for orders could be:
