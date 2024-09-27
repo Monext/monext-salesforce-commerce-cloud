@@ -228,6 +228,7 @@ Configure the preferences:
 # Additional resources for developers
 
 - [Monext API documentation](https://api-docs.retail.monext.com/reference/getting-started-with-your-api)
+- [Monext documentation](https://docs.monext.fr/display/DT/Plugin+Salesforce)
 - [SFCC](https://developer.salesforce.com/developer-centers/commerce-cloud)
 
 # License
