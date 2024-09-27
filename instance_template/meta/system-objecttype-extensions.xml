@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="Order">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="monextSessionID">
+                <display-name xml:lang="x-default">Monext Session ID</display-name>
+                <type>string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>true</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+            <attribute-definition attribute-id="monextIsAuthorizedOnlyTransactionCancelled">
+                <display-name xml:lang="x-default">Order cancelled after authorisation and before capture</display-name>
+                <type>boolean</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>true</externally-managed-flag>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="monext">
+                <display-name xml:lang="x-default">monext</display-name>
+                <attribute attribute-id="monextSessionID"/>
+                <attribute attribute-id="monextIsAuthorizedOnlyTransactionCancelled"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+
+    <type-extension type-id="SitePreferences">
+        <custom-attribute-definitions>
+                    <attribute-definition attribute-id="monext_ApiKey">
+                <display-name xml:lang="x-default">API KEY</display-name>
+                <display-name xml:lang="fr">Clé d’API</display-name>
+                <description xml:lang="x-default">64base encoded, as copied from Monex admin, incl. 'Basic'</description>
+                <type>password</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+            </attribute-definition>
+            <attribute-definition attribute-id="monext_capture">
+                <display-name xml:lang="x-default">Capture method</display-name>
+                <display-name xml:lang="fr">Type de capture</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">AUTOMATIC</display>
+                        <display xml:lang="fr">AUTOMATIQUE</display>
+                        <value>AUTOMATIC</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">MANUAL</display>
+                        <display xml:lang="fr">MANUELLE</display>
+                        <value>MANUAL</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="monext_environment">
+                <display-name xml:lang="x-default">Environment to be used</display-name>
+                <display-name xml:lang="fr">Environnement</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">Homologation</display>
+                        <display xml:lang="fr">Homologation</display>
+                        <value>https://api-sandbox.retail.monext.com/v1</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Production</display>
+                        <display xml:lang="fr">Production</display>
+                        <value>https://api.retail.monext.com/v1</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="monext_pointOfSaleReference">
+                <display-name xml:lang="x-default">Point of Sale Reference</display-name>
+                <display-name xml:lang="fr">Point de vente</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
+        </custom-attribute-definitions>
+        <group-definitions>
+            <attribute-group group-id="Monext">
+                <display-name xml:lang="x-default">Monext</display-name>
+                <attribute attribute-id="monext_pointOfSaleReference"/>
+                <attribute attribute-id="monext_capture"/>
+                <attribute attribute-id="monext_ApiKey"/>
+                <attribute attribute-id="monext_environment"/>
+            </attribute-group>
+        </group-definitions>
+    </type-extension>
+</metadata>

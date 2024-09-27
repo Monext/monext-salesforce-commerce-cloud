@@ -1,0 +1,4 @@
+<div class="credit-card-type">
+    ${dw.order.PaymentMgr.getPaymentMethod('MONEXT').name}
+</div>
+

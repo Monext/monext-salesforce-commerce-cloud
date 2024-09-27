@@ -1,0 +1,10 @@
+<li class="nav-item" data-method-id="${paymentOption.ID}">
+    <a class="nav-link monext-tab" data-toggle="tab" href="#monext-content" role="tab">
+        <img class="credit-card-option"
+                src="${dw.order.PaymentMgr.getPaymentMethod('MONEXT').image.URL}"
+                height="32"
+                alt="${paymentOption.name}"
+                title="${paymentOption.name}"
+        />
+    </a>
+</li>

@@ -1,0 +1,51 @@
+{
+    "step-types": {
+        "chunk-script-module-step":  [
+            {
+                "@type-id": "custom.monextHandleOrders",
+                "@supports-parallel-execution": "false",
+                "@supports-site-context": "true",
+                "@supports-organization-context": "false",
+                "module": "bm_monext/cartridge/scripts/job/handleOrders",
+                "description": "Handles orders",
+                "before-step-function": "beforeStep",
+                "total-count-function": "getTotalCount",
+                "before-chunk-function": "",
+                "read-function": "read",
+                "process-function": "process",
+                "write-function": "write",
+                "after-chunk-function": "",
+                "after-step-function": "",
+                "chunk-size": 1,
+                "transactional": "false",
+                "parameters": {
+                    "parameters": [{
+                        "@name": "orderQuery",
+                        "@type": "string",
+                        "@required": "true",
+                        "@trim": "true",
+                        "description": "Query for orders to be used"
+                    },
+                    {
+                        "@name": "actions",
+                        "@type": "string",
+                        "@required": "true",
+                        "@trim": "true",
+                        "description": "Actions to be verified"
+                    }]
+                },
+                "status-codes": {
+                    "status": [{
+                        "@code": "ERROR",
+                        "description": "Used when an error occurred."
+                    },
+                        {
+                            "@code": "OK",
+                            "description": "Used when execution was successful."
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

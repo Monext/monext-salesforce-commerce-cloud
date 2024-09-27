@@ -1,0 +1,12 @@
+<iscomment> <div class="payment-details">
+    <isloop items="${pdict.order.billing.payment.selectedPaymentInstruments}" var="payment">
+        <isif condition="${payment.paymentMethod === 'CREDIT_CARD'}">
+            <isinclude template="checkout/billing/paymentOptions/creditCardSummary" />
+        CUSTOMIZATION, NEXT IF BLOCK
+        <iselse/>
+            <isinclude template="checkout/billing/paymentOptions/monextSummary" />
+        </isif>
+    </isloop>
+</div> </iscomment>
+
+<isinclude template="checkout/billing/paymentOptions/monextSummary" />

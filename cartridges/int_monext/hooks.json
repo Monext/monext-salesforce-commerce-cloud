@@ -1,0 +1,12 @@
+{
+    "hooks": [
+        {
+            "name": "app.payment.processor.monext",
+            "script": "./cartridge/scripts/hooks/payment/processor/monext"
+        },
+        {
+            "name": "app.payment.form.processor.monext",
+            "script": "./cartridge/scripts/hooks/payment/processor/monext_form_processor"
+        }
+    ]
+}
