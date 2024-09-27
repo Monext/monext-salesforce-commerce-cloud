@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<extensions xmlns="http://www.demandware.com/xml/bmmodules/2007-12-11" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.demandware.com/xml/bmmodules/2007-12-11 bmext.xsd">
+	<menuaction id="order_payment_details" menupath="order" type="CSC" site="true" position="1">
+	    <name xml:lang="x-default">Manage Payment (Monext)</name>
+	    <name xml:lang="fr">G&#233;rer le paiement (Monext)</name>
+	    <short_description xml:lang="x-default">Manage Payment (Monext)</short_description>
+	    <short_description xml:lang="fr">G&#233;rer le paiement (Monext)</short_description>
+	    <description xml:lang="x-default">Manage Payment (Monext)</description>
+	    <description xml:lang="fr">G&#233;rer le paiement (Monext)</description>
+	    <exec pipeline="ManageOrder" node="Start"/>
+	    <sub-pipelines>
+	        <pipeline name="ManageOrder" />
+	        <pipeline name="Monext" />
+	    </sub-pipelines>
+	    <parameters>
+	        <parameter name="orderID" value="/order_no"/>
+	    </parameters>
+	</menuaction>
+</extensions>

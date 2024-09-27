@@ -1,0 +1,19 @@
+<div class="tab-pane monext-content" id="monext-content" role="tabpanel">
+    ${dw.order.PaymentMgr.getPaymentMethod('MONEXT').description}
+    <fieldset class="payment-form-fields">
+        <input type="hidden" class="form-control"
+               name="${pdict.forms.billingForm.paymentMethod.htmlName}"
+               value="MONEXT"
+        />
+        <iscomment>
+        The following input added just because the front end code
+        cartridges\app_storefront_base\cartridge\client\default\js\checkout\billing.js
+        line 119
+            $('input[name$=cardNumber]').data('cleave').setRawValue('');
+
+        breaks if there is no such input and it was not initialized with jquery plugin
+        IT IS NOT NEEDED FOR OTHER REASONS. When front end code is adjusted it can be removed
+        </iscomment>
+        <input type="hidden" id="cardNumber" name="cardNumber" class="cardNumber"/>
+    </fieldset>
+</div>

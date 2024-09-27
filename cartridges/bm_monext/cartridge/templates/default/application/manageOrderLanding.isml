@@ -1,0 +1,90 @@
+<style>
+    .main {
+        font-family: Salesforce Sans, Arial, sans-serif;
+    }
+
+    .summary {
+        border: 2px solid black;
+        border-radius: .5rem;
+        padding: 0 .75rem;
+        margin-top: 2rem;
+    }
+
+    button {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #dddbda;
+        transition: border .15s linear;
+        background-color: #0070d2;
+        border-color: #0070d2;
+        color: #fff;
+        font-weight: 400;
+        line-height: 1.875rem;
+        text-decoration: none;
+        white-space: nowrap;
+        border-radius: .25rem;
+    }
+
+    input {
+        height: 34px
+    }
+
+    .label, label {
+        color: grey;
+        font-weight:400
+    }
+
+    .money {
+        color:black;
+        font-weight:700
+    }
+</style>
+<div class="main">
+    <img class="credit-card-option"
+            src="${dw.order.PaymentMgr.getPaymentMethod('MONEXT').image.URL}"
+            height="32"
+            alt="${paymentOption.name}"
+            title="${paymentOption.name}"
+    />
+
+    <div class="summary">
+        <h3>${Resource.msg('transactions.summary', 'customerservice',null)}</h3>
+        <p class="label">${Resource.msg('captured', 'customerservice',null)}: <span class="money"> <isprint value = "${pdict.amounts.capturedMoney}" style = "MONEY_LONG"/> </span> </p>
+        <p class="label">${Resource.msg('cancelled', 'customerservice',null)}: <span class="money"> <isprint value = "${pdict.amounts.cancelledMoney}" style = "MONEY_LONG"/> </span> </p>
+        <p class="label">${Resource.msg('refunded', 'customerservice',null)}: <span class="money"> <isprint value = "${pdict.amounts.refundedMoney}" style = "MONEY_LONG"/> </span> </p>
+    </div>
+
+    <div class="actions">
+        <h3>${Resource.msg('available.operations', 'customerservice',null)}</h3>
+
+        <isif condition="${pdict.amounts.refundable > 0}">
+            <form action="${URLUtils.url('Monext-Refund', 'orderID', pdict.orderID)}" method="POST">
+                <label for="amount">${Resource.msg('refundable', 'customerservice',null)}: <span class="money"><isprint value = "${pdict.amounts.refundableMoney}" style = "MONEY_LONG"/> </span></label>
+                <input type="number" id="amount" name="amount" max="${pdict.amounts.refundable}" step=".01"/>
+                <button type="summit">${Resource.msg('button.refund', 'customerservice',null)}</button>
+            </form>
+        </isif>
+
+        <isif condition="${pdict.amounts.cancellable > 0}">
+            <form action="${URLUtils.url('Monext-Cancel', 'orderID', pdict.orderID)}" method="POST">
+                <label for="amount">${Resource.msg('cancellable', 'customerservice',null)}: <span class="money"><isprint value = "${pdict.amounts.cancellableMoney}" style = "MONEY_LONG"/> </span></label>
+                <input type="hidden" id="amount" name="amount" value="${pdict.amounts.cancellable}" step=".01"/>
+                <button type="summit">${Resource.msg('button.cancel', 'customerservice',null)}</button>
+            </form>
+        </isif>
+
+        <isif condition="${pdict.amounts.capturable > 0}">
+            <form action="${URLUtils.url('Monext-Capture', 'orderID', pdict.orderID)}" method="POST">
+                <label for="amount">${Resource.msg('capturable', 'customerservice',null)}: <span class="money"><isprint value = "${pdict.amounts.capturableMoney}" style = "MONEY_LONG"/> </span></label>
+                <input type="hidden" id="amount" name="amount" value="${pdict.amounts.capturable}" step=".01"/>
+                <button type="summit">${Resource.msg('button.capture', 'customerservice',null)}</button>
+            </form>
+        </isif>
+
+        <isif condition="${pdict.amounts.refundable === 0 && pdict.amounts.capturable === 0 && pdict.amounts.cancellable === 0}">
+            <p class="label">${Resource.msg('no.operations.available', 'customerservice',null)}</p>
+        </isif>
+    </div>
+</div>

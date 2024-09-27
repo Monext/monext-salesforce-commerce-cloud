@@ -1,0 +1,7 @@
+<isif condition="${pdict.message.result.title === 'ACCEPTED'}">
+    ${Resource.msg('transaction.sucessful', 'customerservice',null)}
+<iselseif condition="${pdict.message.result.title === 'ERROR'}"/>
+    ${Resource.msg('transaction.failed', 'customerservice',null)}
+    (${pdict.message.result.code}) ${Resource.msg('error.' + pdict.message.result.code, 'customerservice',null)}
+</isif>
+

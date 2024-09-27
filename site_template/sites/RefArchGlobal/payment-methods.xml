@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<payment-settings xmlns="http://www.demandware.com/xml/impex/paymentsettings/2009-09-15">
+    <payment-method method-id="MONEXT">
+        <name xml:lang="x-default">Monext</name>
+        <description xml:lang="x-default">After confirmation page you will be redirected to Monext site for payment</description>
+        <image>images/monext/logo-monext.svg</image>
+        <enabled-flag>true</enabled-flag>
+        <processor-id>MONEXT</processor-id>
+    </payment-method>
+</payment-settings>
