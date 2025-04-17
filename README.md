@@ -9,6 +9,7 @@
 - [Overview](#overview)
 - [Features](#features)
   - [Hosted payment page (HPP)](#hosted-payment-page-hpp)
+  - [Widget](#widget)
   - [Manual order operations](#manual-order-operations)
   - [Additional order handling](#additional-order-handling)
 - [Prerequisites](#prerequisites)
@@ -21,7 +22,7 @@
   - [Import folders](#import-folders)
     - [Instance imports](#instance-imports)
     - [Site imports](#site-imports)
-  - [#Preferences settings](#preferences-settings)
+  - [Preferences settings](#preferences-settings)
   - [Cartridge int\_monext](#cartridge-int_monext)
   - [Cartridge int\_monext\_overrides - can be added to path or used as reference for the required changes](#cartridge-int_monext_overrides---can-be-added-to-path-or-used-as-reference-for-the-required-changes)
   - [Cartridge bm\_monext](#cartridge-bm_monext)
@@ -41,6 +42,12 @@ After configuration, using this payment method in checkout will notify the user 
 
 After interacting the HPP user will be taken to either thank you page or error or back to cart depending on the payment outcome.
 
+## Widget
+
+When configured a widget will be shown on order confirmation page after user confirms the order.
+
+After interacting the widget user will be taken to either thank you page or error or back to cart depending on the payment outcome.
+
 ## Manual order operations
 
 In Customer Service Center (CSC), on an order details page a new page is added under 'Manage Orders' (found in the 'More...' dropdown at the top-right).
@@ -49,11 +56,7 @@ On that page, the user can see the captured, cancelled and refunded summaries an
 
 This basic implementation can be extended with additional code to cover different business needs.
 
-<<<<<<< HEAD
 ![Customer Service Center](readme_images/CSC.png)
-=======
-![Customer Service Center](CSC.png)
->>>>>>> 7328248 (feat: first release)
 
 ## Additional order handling
 
@@ -63,11 +66,7 @@ A custom job step `custom.monextHandleOrders` is implemented. It accepts two par
 
 It can be used to automate certain processes depending on the business cases. It can be set to run on schedule or manually.
 
-<<<<<<< HEAD
 ![Jobs](readme_images/jobs.png)
-=======
-![Jobs](jobs.png)
->>>>>>> 7328248 (feat: first release)
 
 **Example 1**: Capture amount for shipped orders. 
 In that case the query for orders could be:
@@ -117,9 +116,11 @@ The conditions for each action are added in the code of the cartridge in `int_mo
 
 # Prerequisites
 
-1. Having your Monext API key ready. You can copy it (incl. 'Basic ') from the Monext backoffice and put it as password in the `monext` service credentials.
+1. Having your Monext API key ready. You can copy it (incl. 'Basic ') from the Monext backoffice.
 
 2. Having your Monext "Point Of Sales" identifier.
+
+3. (optional) Having a list ot payment method IDs to be shown to the user. Found in Monext backoffice.
 
 # Configuration
 
@@ -127,19 +128,18 @@ The conditions for each action are added in the code of the cartridge in `int_mo
 
 This cartridge add the following "Site preferences" attributes:
 
-- Point of sale.
-- Capture method.
-- API key.
-- Environment.
+- Point of sale
+- Capture method
+- API key
+- Environment
+- Mode
+- Payment Method IDs
 
 ### New custom attributes of order level
 
 To store the Monext session ID:
 
 ![Order attribute](readme_images/monextSessionID.png)
-
-To determine if transactions were already cancelled before capture, because the built-in statuses are not sufficient.
-
 
 ### New payment method and payment processor
 ![Payment processor](readme_images/processor.png)
@@ -174,6 +174,8 @@ Import instance template from folder `instance_template` to
       2. `monext_capture`
       3. `monext_ApiKey`
       4. `monext_environment`
+      5. `monext_mode`
+      6. `monext_paymentMethodIDs`
 
         Or create the attributes from the list, check the meta file for exact configuration.
 
@@ -194,6 +196,8 @@ Configure the preferences:
 3. `monext_ApiKey` - API key as copied from Monext.
       Basic auth string containing user (matches Merchant ID) and password, joined with `:` and base64 encoded can be coped directly from the API key (refer to [Prerequisites](#prerequisites)).
 4. `monext_environment` - Production or Test.
+5. `monext_mode` - HPP or Widget.
+6. `monext_paymentMethodIDs` - Add the methods to be displayed to the user. Ids available in Monext backoffice. Can be empty, then all methods are displayed.
    
 ## Cartridge int_monext
 
@@ -216,7 +220,7 @@ Configure the preferences:
 
     ![Modified PaymentOptionsSummary](readme_images/modified_PaymentOptionsSummary.png "Modified PaymentOptionsSummary")
 
-6. Override `cartridges\app_storefront_base\cartridge\controllers\CheckoutServices.js` to allow interruption of order placement flow until HPP calls back. A new endpoint will handle the callback :
+6. (only for HPP mode) Override `cartridges\app_storefront_base\cartridge\controllers\CheckoutServices.js` to allow interruption of order placement flow until HPP calls back. A new endpoint will handle the callback:
 
       ![Modified PaymentOptionsTabs](readme_images/modifiedController_CheckoutServices.png "Modified PaymentOptionsTabs")
 
@@ -224,9 +228,21 @@ Configure the preferences:
 
 ![modified payments](readme_images/modified_payments_model.png "Modified payments")
 
-8. File `cartridges\int_monext\cartridge\scripts\checkout\checkoutHelpers.js` was overridden to allow HPP URL to be communicated to the confirmation flow:
+8. (only for HPP mode) File `cartridges\app_storefront_base\cartridge\scripts\checkout\checkoutHelpers.js` was overridden to allow HPP URL to be communicated to the confirmation flow:
 
 ![overridden CheckoutHelper](readme_images/overridden_CheckoutHelper.png "overridden CheckoutHelper")
+
+9. (only for Widget mode) Update or override `cartridges\app_storefront_base\cartridge\templates\default\checkout\checkout.isml` to add a Cancel button under the widget
+
+![modified checkout](readme_images/overridden_checkout.png "Modified checkout")
+
+10. (only for Widget mode) Update or override `cartridges\app_storefront_base\cartridge\templates\default\common\layout\checkout.isml` 
+
+![modified checkout](readme_images/overridden_layout_checkout.png "Modified checkout")
+
+11.  Update frontend code `cartridges\int_monext_overrides\cartridge\client\default\js\checkout\checkout.js` - file provided in the cartridge for reference. Actual change to be done depending on the frontend compiation approach
+
+![changed checkout js](readme_images/changed_checkout_js.png "Changed checkout js")
 
 ## Cartridge bm_monext
 
@@ -236,10 +252,6 @@ Configure the preferences:
 # Additional resources for developers
 
 - [Monext API documentation](https://api-docs.retail.monext.com/reference/getting-started-with-your-api)
-<<<<<<< HEAD
-- [Monext documentation](https://docs.monext.fr/display/DT/Plugin+Salesforce)
-=======
->>>>>>> 7328248 (feat: first release)
 - [SFCC](https://developer.salesforce.com/developer-centers/commerce-cloud)
 
 # License

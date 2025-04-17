@@ -81,6 +81,31 @@
                 <externally-managed-flag>false</externally-managed-flag>
                 <min-length>0</min-length>
             </attribute-definition>
+            <attribute-definition attribute-id="monext_mode">
+                <display-name xml:lang="x-default">Integration mode</display-name>
+                <display-name xml:lang="fr">Integration mode</display-name>
+                <type>enum-of-string</type>
+                <mandatory-flag>false</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <value-definitions>
+                    <value-definition default="true">
+                        <display xml:lang="x-default">HPP</display>
+                        <value>HPP</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Widget</display>
+                        <value>Widget</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="monext_paymentMethodIDs">
+                <display-name xml:lang="x-default">Payment Methods IDs</display-name>
+                <display-name xml:lang="fr">Payment Methods IDs</display-name>
+                <type>string</type>
+                <mandatory-flag>true</mandatory-flag>
+                <externally-managed-flag>false</externally-managed-flag>
+                <min-length>0</min-length>
+            </attribute-definition>
         </custom-attribute-definitions>
         <group-definitions>
             <attribute-group group-id="Monext">
@@ -89,6 +114,8 @@
                 <attribute attribute-id="monext_capture"/>
                 <attribute attribute-id="monext_ApiKey"/>
                 <attribute attribute-id="monext_environment"/>
+                <attribute attribute-id="monext_mode"/>
+                <attribute attribute-id="monext_paymentMethodIDs"/>
             </attribute-group>
         </group-definitions>
     </type-extension>

@@ -180,15 +180,25 @@ server.replace('PlaceOrder', server.middleware.https, function (req, res, next) 
         Transaction.wrap(function () {
             order.custom.monextSessionID = handlePaymentResult.sessionID;
         });
+
         res.json({
-            error: true,
-            cartError: true,
-            redirectUrl: handlePaymentResult.redirectURL
+            useWidget: true,
+            orderId: order.orderNo,
+            sessionId: handlePaymentResult.sessionID,
         });
+
+        var Site = require('dw/system/Site');
+        var mode = Site.current.getCustomPreferenceValue('monext_mode').value;
+        if (mode === 'HPP') {
+            res.json({
+                useHPP: true,
+                redirectUrl: handlePaymentResult.redirectURL
+            });
+        }
 
         return next();
     }
-    // CUSTOMIZATION START
+    // CUSTOMIZATION END
 
     // Places the order
     var placeOrderResult = COHelpers.placeOrder(order, fraudDetectionStatus);

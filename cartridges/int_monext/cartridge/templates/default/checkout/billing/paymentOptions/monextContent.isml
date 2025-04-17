@@ -1,4 +1,4 @@
-<div class="tab-pane monext-content" id="monext-content" role="tabpanel">
+<div class="tab-pane active monext-content" id="monext-content" role="tabpanel">
     ${dw.order.PaymentMgr.getPaymentMethod('MONEXT').description}
     <fieldset class="payment-form-fields">
         <input type="hidden" class="form-control"

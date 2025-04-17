@@ -49,7 +49,7 @@ function Authorize(orderNumber, paymentInstrument, paymentProcessor) {
     var error = false;
 
     var monextService = require('*/cartridge/scripts/monext/monextService');
-    var message = monextService.createSession(orderNumber, paymentInstrument);
+    var message = monextService.createSession(orderNumber);
 
     if (message.error) {
         error = true;
