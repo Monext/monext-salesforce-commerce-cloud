@@ -1,0 +1,2 @@
+
+<a class="payline-widget-cancel-payment" style="display: none" href="${URLUtils.url('Monext-CancelOrder', 'orderID', 'orderidplaceholder')}">${Resource.msg('button.cancel','payment',null)}</a>

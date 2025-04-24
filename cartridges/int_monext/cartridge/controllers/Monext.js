@@ -95,4 +95,19 @@ server.get(
     }
 );
 
+server.get(
+    'CancelOrder',
+    function (req, res, next) {
+        var Transaction = require('dw/system/Transaction');
+        var OrderMgr = require('dw/order/OrderMgr');
+        var order = OrderMgr.getOrder(req.querystring.orderID);
+        Transaction.wrap(function () {
+            OrderMgr.failOrder(order, true);
+        });
+        var URLUtils = require('dw/web/URLUtils');
+        res.redirect(URLUtils.url('Cart-Show', 'canceledMonext', 'true'));
+        return next();
+    }
+);
+
 module.exports = server.exports();

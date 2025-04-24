@@ -175,6 +175,13 @@ function createSession(orderNumber) {
         }
     }
 
+    var paymentMethodIDs = Site.current.getCustomPreferenceValue('monext_paymentMethodIDs');
+    if (!empty(paymentMethodIDs)) {
+        payload.paymentMethod = {
+            paymentMethodIDs: paymentMethodIDs.replace(/\s/g, '').split(',')
+        };
+    }
+
     var result = sessionService.call(payload);
 
     if (!result.ok) {
